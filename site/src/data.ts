@@ -8,12 +8,14 @@ export type Contact = { name: string; phone: string }
 
 // Numbers as printed on the fleet livery.
 export const contacts: Contact[] = [
-  { name: 'Joseph', phone: '065 741 6172' },
   { name: 'Micheal', phone: '079 525 9116' },
+  { name: 'Joseph', phone: '065 741 6172' },
   { name: 'Henko', phone: '066 227 5515' },
 ]
 
+// The 24/7 line is Micheal's. Quote requests still go to the depot (Joseph).
 export const primaryPhone = contacts[0].phone
+export const depotPhone = contacts[1].phone
 
 export const telHref = (phone: string) => `tel:+27${phone.replace(/\s/g, '').slice(1)}`
 export const waHref = (phone: string, text = '') =>
@@ -90,7 +92,7 @@ export const team: TeamMember[] = [
   { name: 'Micheal Erasmus', role: 'CEO', phone: '079 525 9116' },
   { name: 'Alet Erasmus', role: 'CEO' },
   { name: 'Henko Steenkamp', role: 'Sales Representative & Driver', phone: '066 227 5515' },
-  { name: 'Zuhardt Erasmus', role: 'Driver' },
+  { name: 'Zuhardt Erasmus', role: 'Driver', phone: '064 682 4882' },
   { name: 'Leighton Diedricks', role: 'Driver' },
   { name: 'Jessica Neethling', role: 'On-site Assistant' },
   { name: 'Renier Kachelhoffer', role: 'Maintenance Manager' },

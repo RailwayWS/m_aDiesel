@@ -1640,6 +1640,194 @@ a.hex:active {
 }
 
 /* ==========================================================================
+   Phone layout — same pieces, packed tighter: compact proof rows, swipeable
+   services, a list-style team, a floating call pill. Desktop is untouched.
+   ========================================================================== */
+@media (max-width: 699px) {
+  .section__intro {
+    font-size: 18px;
+  }
+
+  /* Proof: figure left, label + note right, hairline between rows */
+  .proof {
+    padding: 8px 0 12px;
+  }
+  .proof__grid {
+    gap: 0;
+  }
+  .proof__item {
+    display: grid;
+    grid-template-columns: 124px 1fr;
+    align-items: center;
+    column-gap: 16px;
+    padding: 18px 0;
+  }
+  .proof__item + .proof__item {
+    border-top: 1px solid var(--outline);
+  }
+  .proof__figure {
+    grid-row: span 2;
+    font-size: 36px;
+    white-space: nowrap;
+  }
+  .proof__label {
+    margin-top: 0;
+    font-size: 16px;
+  }
+  .proof__note {
+    margin-top: 2px;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  /* Services: a horizontal swipe row that bleeds to the screen edge.
+     The next card peeks in so the row reads as swipeable. */
+  .services {
+    grid-auto-flow: column;
+    grid-auto-columns: 84%;
+    gap: 16px;
+    margin-inline: calc(-1 * var(--margin));
+    padding: 0 var(--margin) 8px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--margin);
+    scrollbar-width: none;
+  }
+  .services::-webkit-scrollbar {
+    display: none;
+  }
+  .service {
+    scroll-snap-align: start;
+    gap: 0;
+    background: var(--surface);
+    border: 1px solid var(--outline);
+  }
+  .service__media,
+  .service--feature .service__media {
+    aspect-ratio: 16 / 10;
+  }
+  .service__text {
+    padding: 14px 16px 16px;
+  }
+  .service__head {
+    gap: 10px;
+    padding-top: 0;
+    border-top: 0;
+  }
+  .service__title,
+  .service--feature .service__title {
+    font-size: 22px;
+  }
+  .service__index,
+  .service--feature .service__index {
+    font-size: 18px;
+  }
+  .service__body,
+  .service--feature .service__body {
+    margin-top: 6px;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  /* The hive above already carries the 24/7 badge and call — keep the cards equal and light */
+  .service .badge-247,
+  .service .btn {
+    display: none;
+  }
+
+  /* Team: one row per person — square avatar, then name, role and number */
+  .team {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .member {
+    flex-direction: row;
+    align-items: stretch;
+  }
+  .member__photo {
+    flex: none;
+    width: 84px;
+    aspect-ratio: auto;
+    min-height: 84px;
+    gap: 4px;
+  }
+  .member__initials {
+    font-size: 28px;
+  }
+  .member__pending svg {
+    width: 14px;
+    height: 14px;
+  }
+  .member__body {
+    justify-content: center;
+    min-width: 0;
+    padding: 12px 16px;
+    border-top: 0;
+    border-left: 3px solid var(--primary);
+  }
+  .member__name {
+    font-size: 20px;
+  }
+  .member__role {
+    margin-top: 2px;
+  }
+  .member__phone {
+    margin-top: 6px;
+    padding-top: 0;
+    min-height: 32px;
+  }
+
+  /* Footer: logo full width, Call / Depot / Explore share two columns */
+  .footer {
+    padding-top: 48px;
+    padding-bottom: calc(112px + env(safe-area-inset-bottom));
+  }
+  .footer__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px 16px;
+  }
+  .footer__grid > :first-child,
+  .footer__grid > :nth-child(2) {
+    grid-column: 1 / -1;
+  }
+  .footer__logo {
+    width: 120px;
+  }
+  .footer li + li {
+    margin-top: 0;
+  }
+  .footer li a {
+    display: inline-block;
+    padding: 6px 0;
+  }
+  .footer__base {
+    margin-top: 40px;
+  }
+}
+
+/* Call bar becomes a floating pill — the same shape as the nav it pairs with */
+@media (max-width: 899px) {
+  .callbar {
+    left: 12px;
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom));
+    height: 56px;
+    padding-bottom: 0;
+    border-radius: var(--r-full);
+    box-shadow: 0 16px 40px -14px rgb(2 36 82 / 0.55);
+    transform: translateY(calc(100% + 24px + env(safe-area-inset-bottom)));
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      transform 300ms var(--ease-drawer),
+      background-color var(--hover) ease;
+  }
+  .callbar[data-show='true']:active {
+    transform: scale(0.97);
+    transition-duration: var(--press), var(--hover);
+  }
+}
+
+/* ==========================================================================
    Reduced motion: fewer and gentler, not zero. Keep fades, drop movement.
    ========================================================================== */
 @media (prefers-reduced-motion: reduce) {

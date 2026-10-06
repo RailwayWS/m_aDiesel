@@ -1,6 +1,6 @@
 import { useState, type FormEvent, type ReactNode } from 'react'
 import backdrop from '../assets/photos/emergency-tanker-dusk.webp'
-import { address, contacts, primaryPhone, telHref, waHref } from '../data'
+import { address, contacts, depotPhone, telHref, waHref } from '../data'
 import { useReveal } from '../hooks'
 import {
   ArrowIcon,
@@ -88,7 +88,7 @@ export function Contact() {
     ]
       .filter(Boolean)
       .join('\n')
-    window.open(waHref(primaryPhone, text), '_blank', 'noopener')
+    window.open(waHref(depotPhone, text), '_blank', 'noopener')
     setSent(true)
   }
 

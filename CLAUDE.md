@@ -38,6 +38,6 @@ Commit and push to `main` **before** `npm run deploy`, and only deploy from a co
 
 ## Open items
 
-- Team portraits don't exist yet, so the Team section and its nav link are commented out (`App.tsx`, `navLinks` in `data.ts`). When photos arrive, uncomment both and add `photo` per person in `data.ts`; the frame is square (head-and-shoulders, shot at the depot).
+- Team portraits don't exist yet; each card shows the person's initials (the client asked for no camera icon). When photos arrive, add `photo` per person in `data.ts`; the frame is square (head-and-shoulders, shot at the depot).
 - Service and About copy was written from the photos and brief. The business should confirm it.
 - The root `.gitignore` is GitHub's ActionScript template. `site/.gitignore` covers `node_modules` and `dist`.

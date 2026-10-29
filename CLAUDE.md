@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-A one-page marketing site for **M&A Diesel**, a 24/7 bulk diesel delivery business in Parow Valley, Cape Town. React 19 + TypeScript + Vite, with plain CSS and no UI or motion libraries.
+A one-page marketing site (live at https://madieseldepot.co.za/, deployed to GitHub Pages with `npm run deploy` in `site/`) for **M&A Diesel**, a 24/7 bulk diesel delivery business in Parow Valley, Cape Town. React 19 + TypeScript + Vite, with plain CSS and no UI or motion libraries.
 
 - `DESIGN.md`: the design system (Fleet Livery direction): tokens, layout rules, motion rules, Do's and Don'ts. **It is normative.** Change it first, then mirror token changes in `site/src/index.css` `:root`. Lint it with `npx -y @google/design.md@latest lint DESIGN.md` (keep 0 errors and 0 warnings).
 - `docs/design-loop/`: `bar.md` (reference teardown of trybooster.com) and `progress.md` (critic rounds).

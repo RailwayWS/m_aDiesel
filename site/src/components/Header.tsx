@@ -1,14 +1,17 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Logo } from './Logo'
 import { PhoneIcon } from './Icons'
-import { contacts, navLinks, primaryPhone, telHref } from '../data'
+import { openCallPopup } from '../callPopup'
+import { menuContacts, navHref, navLinks, primaryPhone, telHref, type Page } from '../data'
 import { useActiveSection, useScrolled } from '../hooks'
 
 const sectionIds = navLinks.map((l) => l.id)
 
-export function Header() {
+export function Header({ page = 'home' }: { page?: Page }) {
   const scrolled = useScrolled()
-  const active = useActiveSection(sectionIds)
+  const section = useActiveSection(sectionIds)
+  // Off the home page the pill marks the page itself rather than a scrolled-to section.
+  const active = page === 'home' ? section : page
   const [open, setOpen] = useState(false)
   const headerRef = useRef<HTMLElement>(null)
   const linksRef = useRef<HTMLUListElement>(null)
@@ -25,11 +28,24 @@ export function Header() {
       overlay.style.opacity = '0'
       return
     }
-    const left = link.offsetLeft
-    const right = list.offsetWidth - left - link.offsetWidth
-    overlay.style.opacity = '1'
-    overlay.style.clipPath = `inset(0 ${right}px 0 ${left}px round 9999px)`
-  }, [active])
+    const place = () => {
+      const left = link.offsetLeft
+      const right = list.offsetWidth - left - link.offsetWidth
+      overlay.style.opacity = '1'
+      overlay.style.clipPath = `inset(0 ${right}px 0 ${left}px round 9999px)`
+    }
+    if (page === 'home') return place()
+    // On other pages the pill marks the page you're on: it's already there, so it doesn't slide in.
+    // Measured again once the webfonts land, since they change the link widths.
+    const snap = () => {
+      overlay.style.transition = 'none'
+      place()
+      void overlay.offsetWidth
+      overlay.style.transition = ''
+    }
+    snap()
+    document.fonts.ready.then(snap)
+  }, [active, page])
 
   useEffect(() => {
     if (!open) return
@@ -48,7 +64,7 @@ export function Header() {
   return (
     <header className="header" data-scrolled={scrolled} ref={headerRef}>
       <nav className="pill" aria-label="Main">
-        <a href="#top" className="pill__logo" aria-label="M&A Diesel — back to top">
+        <a href={page === 'home' ? '#top' : '/'} className="pill__logo" aria-label={page === 'home' ? 'M&A Diesel — back to top' : 'M&A Diesel — home'}>
           <Logo />
         </a>
 
@@ -56,7 +72,7 @@ export function Header() {
           <ul ref={linksRef}>
             {navLinks.map((l) => (
               <li key={l.id}>
-                <a href={`#${l.id}`} data-id={l.id} aria-current={active === l.id ? 'true' : undefined}>
+                <a href={navHref(l, page)} data-id={l.id} aria-current={active === l.id ? (l.href ? 'page' : 'true') : undefined}>
                   {l.label}
                 </a>
               </li>
@@ -65,7 +81,7 @@ export function Header() {
           <ul className="pill__active" ref={activeRef} aria-hidden="true">
             {navLinks.map((l) => (
               <li key={l.id}>
-                <a href={`#${l.id}`} tabIndex={-1}>
+                <a href={navHref(l, page)} tabIndex={-1}>
                   {l.label}
                 </a>
               </li>
@@ -73,12 +89,12 @@ export function Header() {
           </ul>
         </div>
 
-        <a className="btn btn--emergency pill__call" href={telHref(primaryPhone)}>
+        <a className="btn btn--emergency pill__call" href={telHref(primaryPhone)} onClick={openCallPopup}>
           <PhoneIcon className="btn__icon" />
           <span className="pill__call-label">24/7</span> {primaryPhone}
         </a>
 
-        <a className="pill__callicon" href={telHref(primaryPhone)} aria-label={`Call ${primaryPhone}`}>
+        <a className="pill__callicon" href={telHref(primaryPhone)} onClick={openCallPopup} aria-label={`Call ${primaryPhone}`}>
           <PhoneIcon />
         </a>
 
@@ -98,14 +114,14 @@ export function Header() {
         <ul>
           {navLinks.map((l, i) => (
             <li key={l.id} style={{ '--i': i } as React.CSSProperties}>
-              <a href={`#${l.id}`} onClick={() => setOpen(false)}>
+              <a href={navHref(l, page)} onClick={() => setOpen(false)}>
                 {l.label}
               </a>
             </li>
           ))}
         </ul>
         <div className="mmenu__phones">
-          {contacts.map((c) => (
+          {menuContacts.map((c) => (
             <a key={c.name} href={telHref(c.phone)} className="mmenu__phone">
               <span>{c.name}</span>
               {c.phone}

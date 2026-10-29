@@ -1,21 +1,33 @@
+import type { ReactNode } from "react";
+import { contacts, telHref } from "../data";
 import { useReveal } from "../hooks";
 
-// Only facts visible in our own photos or the brief. No invented figures.
-const facts = [
+// Only facts visible in our own photos, the brief or supplied by the client. No invented figures.
+const facts: { figure: string; label: string; note: ReactNode }[] = [
     {
         figure: "24/7",
-        label: "Emergency call-outs",
-        note: "Nights, weekends and public holidays",
+        label: "Emergency filling contact numbers",
+        note: (
+            <ul className="proof__phones">
+                {contacts.map((c) => (
+                    <li key={c.name}>
+                        <a href={telHref(c.phone)}>
+                            {c.phone} - {c.name}
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        ),
     },
     {
         figure: "80 000 L",
-        label: "Per depot storage tank",
-        note: "Bunded bulk storage at our Parow Valley depot",
+        label: "Depot holding capacity",
+        note: "Parow Depot",
     },
     {
         figure: "5",
         label: "Ways we refuel you",
-        note: "From one generator to a full bulk load",
+        note: "From generators to Bulk deliveries",
     },
 ];
 
@@ -32,7 +44,7 @@ export function Proof() {
                     >
                         <p className="proof__figure">{f.figure}</p>
                         <p className="proof__label">{f.label}</p>
-                        <p className="proof__note">{f.note}</p>
+                        <div className="proof__note">{f.note}</div>
                     </div>
                 ))}
             </div>

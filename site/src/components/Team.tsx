@@ -52,7 +52,7 @@ export function Team() {
             Our team.
           </h2>
           <p className="section__intro reveal" style={{ '--i': 2 } as React.CSSProperties}>
-            A dedicated crew keeping your business moving — from the depot and the workshop to the driver at your gate.
+            A dedicated crew that <span className="text-red">keeps you moving forward</span> – from our depot to you.
           </p>
         </div>
         <ul className="team reveal-group" ref={grid}>

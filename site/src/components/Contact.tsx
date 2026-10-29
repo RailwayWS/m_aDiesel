@@ -1,6 +1,6 @@
 import { useState, type FormEvent, type ReactNode } from 'react'
 import backdrop from '../assets/photos/emergency-tanker-dusk.webp'
-import { address, contacts, depotPhone, telHref, waHref } from '../data'
+import { address, contactSectionContacts, depotPhone, telHref, waHref } from '../data'
 import { useReveal } from '../hooks'
 import {
   ArrowIcon,
@@ -25,6 +25,12 @@ const trust = [
   { icon: TagIcon, label: 'Competitive pricing' },
   { icon: DropIcon, label: 'Quality fuel' },
 ]
+
+// Types the preferred date as dd/mm/yyyy, adding the slashes as you go.
+function maskDate(e: FormEvent<HTMLInputElement>) {
+  const digits = e.currentTarget.value.replace(/\D/g, '').slice(0, 8)
+  e.currentTarget.value = [digits.slice(0, 2), digits.slice(2, 4), digits.slice(4)].filter(Boolean).join('/')
+}
 
 type Errors = Partial<Record<'name' | 'phone', string>>
 
@@ -108,7 +114,7 @@ export function Contact() {
           </p>
 
           <ul className="phones">
-            {contacts.map((c, i) => (
+            {contactSectionContacts.map((c, i) => (
               <li key={c.name} className="reveal" style={{ '--i': 3 + i } as React.CSSProperties}>
                 <a className="phone-row" href={telHref(c.phone)}>
                   <span className="phone-row__icon">
@@ -171,7 +177,15 @@ export function Contact() {
               <input id="q-litres" name="litres" inputMode="numeric" placeholder="e.g. 5 000" />
             </Field>
             <Field id="q-date" label={<>Preferred date <em>(optional)</em></>} icon={<CalendarIcon />}>
-              <input id="q-date" name="date" type="date" />
+              <input
+                id="q-date"
+                name="date"
+                inputMode="numeric"
+                autoComplete="off"
+                placeholder="dd/mm/yyyy"
+                maxLength={10}
+                onInput={maskDate}
+              />
             </Field>
           </div>
 

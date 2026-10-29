@@ -1,9 +1,9 @@
 import { Logo } from './Logo'
-import { address, contacts, navLinks, telHref } from '../data'
+import { address, footerContacts, navHref, navLinks, telHref, type Page } from '../data'
 
 const year = new Date().getFullYear()
 
-export function Footer() {
+export function Footer({ page = 'home' }: { page?: Page }) {
   return (
     <footer className="footer">
       <div className="container footer__grid">
@@ -14,7 +14,7 @@ export function Footer() {
         <div>
           <h2 className="footer__head">Call</h2>
           <ul>
-            {contacts.map((c) => (
+            {footerContacts.map((c) => (
               <li key={c.name}>
                 <a href={telHref(c.phone)}>
                   {c.name} · {c.phone}
@@ -38,7 +38,7 @@ export function Footer() {
           <ul>
             {navLinks.map((l) => (
               <li key={l.id}>
-                <a href={`#${l.id}`}>{l.label}</a>
+                <a href={navHref(l, page)}>{l.label}</a>
               </li>
             ))}
           </ul>

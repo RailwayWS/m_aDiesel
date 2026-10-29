@@ -143,6 +143,16 @@ address {
   line-height: 1.5;
   color: var(--on-surface-muted);
 }
+/* Client taglines: condensed uppercase navy, a step down from a title */
+.tagline {
+  font: 700 19px/1.15 var(--font-display);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+.text-red {
+  color: var(--tertiary);
+}
 
 /* ==========================================================================
    Buttons
@@ -770,6 +780,22 @@ address {
   font-size: 15px;
   color: var(--on-surface-muted);
 }
+/* The 24/7 figure lists every emergency number */
+.proof__phones {
+  display: grid;
+  gap: 2px;
+  font-variant-numeric: tabular-nums;
+}
+.proof__phones a {
+  color: inherit;
+  text-decoration: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .proof__phones a:hover {
+    color: var(--primary);
+    text-decoration: underline;
+  }
+}
 
 /* ==========================================================================
    Sections
@@ -831,6 +857,10 @@ address {
   margin-top: 10px;
   max-width: 48ch;
   color: var(--on-surface);
+}
+.service__tagline {
+  margin-top: 14px;
+  max-width: 48ch;
 }
 .service .btn {
   margin-top: 24px;
@@ -1001,18 +1031,6 @@ a.hex:active {
   text-transform: uppercase;
   color: var(--primary);
 }
-.hive__summary {
-  margin-top: 6px;
-  font-size: 15px;
-  line-height: 1.4;
-  color: var(--on-surface-muted);
-}
-.hive__phone {
-  font-weight: 700;
-  font-size: 22px;
-  font-variant-numeric: tabular-nums;
-  color: var(--primary);
-}
 
 /* Reveal: hexes settle in from the centre outwards, labels follow */
 .js .hive .hive__item {
@@ -1077,9 +1095,6 @@ a.hex:active {
   }
   .hive__title {
     font-size: 18px;
-  }
-  .hive__summary {
-    margin-top: 4px;
   }
   .js .hive .hive__item,
   .js .hive .hive__label {
@@ -1827,6 +1842,444 @@ a.hex:active {
   }
 }
 
+/* Call pop-up — every call button opens the list of 24/7 numbers.
+   Enters 240ms from scale(0.97); leaves faster (160ms) via [data-closing]. */
+.callpop {
+  width: min(420px, 100% - 32px);
+  max-height: calc(100% - 32px);
+  margin: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: var(--tertiary);
+  color: var(--on-primary);
+  box-shadow: 0 24px 60px -16px rgb(2 36 82 / 0.6);
+}
+.callpop::backdrop {
+  background: rgb(2 36 82 / 0.6);
+}
+.callpop[open] {
+  animation: callpop-in 240ms var(--ease-out);
+}
+.callpop[open]::backdrop {
+  animation: fade 240ms ease;
+}
+.callpop[open][data-closing] {
+  animation: callpop-out 160ms var(--ease-out) both;
+}
+.callpop[open][data-closing]::backdrop {
+  animation: fade-out 160ms ease both;
+}
+@keyframes callpop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}
+@keyframes callpop-out {
+  to {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}
+.callpop__inner {
+  position: relative;
+  padding: 28px 24px 24px;
+}
+.callpop__close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--on-primary);
+  font: 700 32px/1 var(--font-body);
+  cursor: pointer;
+}
+.callpop__close:focus-visible,
+.callpop__list a:focus-visible {
+  outline: 2px solid var(--on-primary);
+  outline-offset: 2px;
+}
+.callpop__title {
+  padding-right: 40px;
+  font: 700 26px/1.05 var(--font-display);
+  text-transform: uppercase;
+}
+.callpop__list {
+  display: grid;
+  gap: 4px;
+  margin-top: 16px;
+}
+.callpop__list a {
+  display: block;
+  padding: 8px 0;
+  color: var(--on-primary);
+  font: 700 22px/1.2 var(--font-body);
+  font-variant-numeric: tabular-nums;
+  text-decoration: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .callpop__close:hover {
+    background: rgb(255 255 255 / 0.15);
+  }
+  .callpop__list a:hover {
+    text-decoration: underline;
+  }
+}
+
+/* ==========================================================================
+   Gallery page (/gallery/) — Night Navy throughout, so the photos carry the colour.
+   The one page allowed parallax: columns drift at different speeds and each photo
+   floats inside its frame. Both are scroll-driven CSS (off the main thread) and only
+   run where supported and where motion is welcome.
+   ========================================================================== */
+.gpage {
+  background: var(--primary-deep);
+  color: var(--on-primary);
+}
+.gpage :focus-visible {
+  outline-color: var(--on-primary);
+}
+.gintro {
+  padding-top: calc(var(--pill-top) + var(--nav-h) + 48px);
+  padding-bottom: 48px;
+}
+.gintro__title {
+  margin-bottom: 24px;
+  font: 700 clamp(48px, 9vw, 104px) / 0.9 var(--font-display);
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+.gintro__sub {
+  max-width: 46ch;
+  font-size: 19px;
+  line-height: 1.5;
+  color: var(--on-primary-muted);
+}
+@media (min-width: 900px) {
+  .gintro {
+    padding-top: calc(var(--pill-top) + var(--nav-h) + 96px);
+    padding-bottom: 80px;
+  }
+}
+
+/* The wall: equal columns, each a stack of photos at their own aspect ratio */
+.gwall-wrap {
+  max-width: calc(1440px + 2 * var(--margin));
+  padding-bottom: 64px;
+}
+.gwall {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: 8px;
+}
+.gwall__col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+@media (min-width: 800px) {
+  .gwall,
+  .gwall__col {
+    gap: 12px;
+  }
+}
+
+.tile__btn {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: zoom-in;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform var(--press) var(--ease-out);
+}
+.tile__btn:active {
+  transform: scale(0.97);
+}
+.tile__frame {
+  display: block;
+  overflow: hidden;
+  background: rgb(255 255 255 / 0.04);
+}
+.tile__zoom {
+  display: block;
+  height: 100%;
+  transition: transform 300ms var(--ease-out);
+}
+.tile__zoom img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+@media (hover: hover) and (pointer: fine) {
+  .tile__btn:hover .tile__zoom {
+    transform: scale(1.04);
+  }
+}
+
+/* Reveal: roller door + rise, once, staggered by column so a row lands left to right.
+   Ends at a slightly negative inset so focus outlines aren't clipped. */
+.js .tile {
+  clip-path: inset(0 0 100% 0);
+  transform: translateY(32px);
+  transition:
+    clip-path 1000ms var(--ease-in-out),
+    transform 900ms var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 90ms);
+}
+.js .tile[data-revealed='true'] {
+  clip-path: inset(-8px);
+  transform: none;
+}
+
+/* Floating parallax. linear: the motion is tied 1:1 to scroll position. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .gwall__col {
+      animation: gwall-drift linear both;
+      animation-timeline: view();
+    }
+    .tile__zoom img {
+      animation: tile-float linear both;
+      animation-timeline: view();
+    }
+  }
+}
+@keyframes gwall-drift {
+  from {
+    transform: translateY(var(--drift));
+  }
+  to {
+    transform: translateY(calc(var(--drift) * -1));
+  }
+}
+/* The photo sits 12% oversize and lags behind its frame, so it reads as further away */
+@keyframes tile-float {
+  from {
+    transform: translateY(-5%) scale(1.12);
+  }
+  to {
+    transform: translateY(5%) scale(1.12);
+  }
+}
+
+.gcta {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-top: 64px;
+  padding-bottom: var(--section-y);
+}
+.gcta__title {
+  font: 700 clamp(36px, 5vw, 52px) / 1 var(--font-display);
+  text-transform: uppercase;
+}
+.gcta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+@media (min-width: 900px) {
+  .gcta {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+@media (max-width: 599px) {
+  .gcta__actions .btn {
+    width: 100%;
+  }
+}
+
+/* Lightbox — native <dialog> (focus trap, Escape, focus return for free).
+   Enters 250ms, leaves faster (150ms). Stepping between photos is instant. */
+html:has(.lightbox[open]) {
+  overflow: hidden;
+}
+.lightbox {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--on-primary);
+  overflow: hidden;
+  opacity: 0;
+  transition:
+    opacity 150ms var(--ease-out),
+    overlay 150ms allow-discrete,
+    display 150ms allow-discrete;
+}
+.lightbox[open] {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  opacity: 1;
+  transition-duration: 250ms;
+}
+.lightbox::backdrop {
+  background: rgb(2 36 82 / 0);
+  transition:
+    background-color 150ms var(--ease-out),
+    overlay 150ms allow-discrete,
+    display 150ms allow-discrete;
+}
+.lightbox[open]::backdrop {
+  background: rgb(2 36 82 / 0.94);
+  transition-duration: 250ms;
+}
+@starting-style {
+  .lightbox[open] {
+    opacity: 0;
+  }
+  .lightbox[open]::backdrop {
+    background: rgb(2 36 82 / 0);
+  }
+}
+.lightbox__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px var(--margin);
+}
+.lightbox__count {
+  font: 700 18px/1 var(--font-display);
+  letter-spacing: 0.1em;
+  font-variant-numeric: tabular-nums;
+}
+.lightbox__count span {
+  color: var(--on-primary-muted);
+}
+.lightbox__figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-height: 0;
+  margin: 0;
+  padding: 0 var(--margin) 24px;
+  touch-action: pan-y;
+  transform: scale(0.97);
+  transition: transform 150ms var(--ease-out);
+}
+.lightbox[open] .lightbox__figure {
+  transform: none;
+  transition-duration: 250ms;
+}
+@starting-style {
+  .lightbox[open] .lightbox__figure {
+    transform: scale(0.97);
+  }
+}
+.lightbox__figure img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: calc(100dvh - 120px);
+  object-fit: contain;
+  user-select: none;
+}
+.lightbox__btn {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--r-sm);
+  background: rgb(255 255 255 / 0.08);
+  color: var(--on-primary);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    transform var(--press) var(--ease-out),
+    background-color var(--hover) ease;
+}
+.lightbox__btn:active {
+  transform: scale(0.97);
+}
+.lightbox__btn svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.lightbox__nav {
+  position: absolute;
+  top: calc(50% - 26px);
+}
+.lightbox__nav--prev {
+  left: var(--margin);
+}
+.lightbox__nav--next {
+  right: var(--margin);
+}
+@media (max-width: 699px) {
+  .lightbox__nav {
+    width: 44px;
+    height: 44px;
+    top: calc(50% - 22px);
+    background: rgb(2 36 82 / 0.7);
+  }
+  .lightbox__nav--prev {
+    left: 8px;
+  }
+  .lightbox__nav--next {
+    right: 8px;
+  }
+}
+@media (min-width: 900px) {
+  .lightbox__figure {
+    padding-inline: calc(var(--margin) + 72px);
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .lightbox__btn:hover {
+    background: rgb(255 255 255 / 0.16);
+  }
+}
+
+/* Reduced motion: no drift, float, zoom or scale. The reveal and lightbox keep a plain fade. */
+@media (prefers-reduced-motion: reduce) {
+  .js .tile {
+    clip-path: none;
+    transform: none;
+    opacity: 0;
+    transition: opacity 300ms ease;
+  }
+  .js .tile[data-revealed='true'] {
+    clip-path: none;
+    opacity: 1;
+  }
+  .tile__zoom,
+  .lightbox__figure {
+    transform: none !important;
+  }
+}
+
 /* ==========================================================================
    Reduced motion: fewer and gentler, not zero. Keep fades, drop movement.
    ========================================================================== */
@@ -1845,8 +2298,12 @@ a.hex:active {
   }
   .hero__stagger,
   .field__error,
-  .notice-success {
+  .notice-success,
+  .callpop[open] {
     animation: fade 200ms ease both;
+  }
+  .callpop[open][data-closing] {
+    animation: fade-out 160ms ease both;
   }
   .js .hive .hive__item {
     transform: none;
@@ -1884,6 +2341,11 @@ a.hex:active {
 }
 @keyframes fade {
   from {
+    opacity: 0;
+  }
+}
+@keyframes fade-out {
+  to {
     opacity: 0;
   }
 }

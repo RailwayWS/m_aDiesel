@@ -2,6 +2,7 @@ import { services, primaryPhone, telHref, type Service } from '../data'
 import { useReveal } from '../hooks'
 import { PhoneIcon } from './Icons'
 import { ServiceHive } from './ServiceHive'
+import { openCallPopup } from '../callPopup'
 
 function ServiceRow({ s, index }: { s: Service; index: number }) {
   const ref = useReveal<HTMLLIElement>()
@@ -23,8 +24,13 @@ function ServiceRow({ s, index }: { s: Service; index: number }) {
         <p className="service__body reveal" style={{ '--i': 2 } as React.CSSProperties}>
           {s.body}
         </p>
+        {s.tagline && (
+          <p className="tagline service__tagline reveal" style={{ '--i': 3 } as React.CSSProperties}>
+            {s.tagline}
+          </p>
+        )}
         {s.emergency && (
-          <a className="btn btn--emergency reveal" style={{ '--i': 3 } as React.CSSProperties} href={telHref(primaryPhone)}>
+          <a className="btn btn--emergency reveal" style={{ '--i': 3 } as React.CSSProperties} href={telHref(primaryPhone)} onClick={openCallPopup}>
             <PhoneIcon className="btn__icon" />
             Call now · {primaryPhone}
           </a>
@@ -40,13 +46,14 @@ export function Services() {
     <section className="section section--tinted" id="services" aria-labelledby="services-title">
       <div className="container">
         <div className="section__head reveal-group" ref={head}>
-          <p className="eyebrow reveal">What we do</p>
+          <p className="eyebrow reveal">
+            What we do <span className="text-red">best</span>
+          </p>
           <h2 id="services-title" className="section__title reveal" style={{ '--i': 1 } as React.CSSProperties}>
-            Fuel, where the work is.
+            Keeps you moving forward
           </h2>
           <p className="section__intro reveal" style={{ '--i': 2 } as React.CSSProperties}>
-            Five services, one phone call. Our tankers, bakkies and bowsers bring diesel to you — so your vehicles,
-            machines and generators never stop for fuel.
+            Five services, one phone call. Our fleet brings diesel directly to you, so your work never stands still.
           </p>
         </div>
         <ServiceHive />

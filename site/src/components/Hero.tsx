@@ -1,5 +1,6 @@
 import hero from '../assets/photos/hero-tanker-sunset.webp'
 import { PhoneIcon, ArrowIcon } from './Icons'
+import { openCallPopup } from '../callPopup'
 import { Swoosh } from './Swoosh'
 import { primaryPhone, telHref } from '../data'
 
@@ -21,11 +22,11 @@ export function Hero() {
           </span>
         </h1>
         <p className="hero__sub hero__stagger" style={{ '--i': 3 } as React.CSSProperties}>
-          Emergency fills, bulk loads and on-site refuelling for generators, plant and fleets across Cape Town — day or
-          night, from our depot in Parow Valley.
+          Bulk deliveries, on-site refuelling for generators, plant and machinery and emergency fillings - across
+          Western Cape.
         </p>
         <div className="hero__ctas hero__stagger" style={{ '--i': 4 } as React.CSSProperties}>
-          <a className="btn btn--emergency btn--lg" href={telHref(primaryPhone)}>
+          <a className="btn btn--emergency btn--lg" href={telHref(primaryPhone)} onClick={openCallPopup}>
             <PhoneIcon className="btn__icon" />
             Call {primaryPhone}
           </a>

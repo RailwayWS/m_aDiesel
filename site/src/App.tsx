@@ -8,6 +8,7 @@ import { About } from './components/About'
 import { Contact } from './components/Contact'
 import { Footer } from './components/Footer'
 import { CallBar } from './components/CallBar'
+import { CallPopup } from './components/CallPopup'
 
 export default function App() {
   return (
@@ -26,6 +27,7 @@ export default function App() {
       </main>
       <Footer />
       <CallBar />
+      <CallPopup />
     </>
   )
 }

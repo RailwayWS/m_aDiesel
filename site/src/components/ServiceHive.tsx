@@ -3,6 +3,7 @@ import { primaryPhone, services, telHref } from '../data'
 import { useReveal } from '../hooks'
 import { Logo } from './Logo'
 import { AlarmIcon, BoltIcon, ExcavatorIcon, HomeIcon, PhoneIcon, TankerIcon } from './Icons'
+import { openCallPopup } from '../callPopup'
 
 // The tanker's hexagon print, put to work as the services overview.
 // Seven flat-top hexes in honeycomb columns: mid · up/down · centre · up/down · mid.
@@ -40,14 +41,13 @@ export function ServiceHive() {
             className={`hive__item hive__item--${side}`}
             style={{ '--x': x, '--y': y, '--ring': ring(x), '--n': i + 1 } as React.CSSProperties}
           >
-            <a className="hex" href={`#service-${s.id}`} aria-label={`${s.title} — see details`}>
+            <a className="hex" href={`#service-${s.id}`} aria-label={`${s.label} — see details`}>
               <span className="hex__inner">
                 <Icon className="hex__icon" />
               </span>
             </a>
             <div className="hive__label">
-              <p className="hive__title">{s.title}</p>
-              <p className="hive__summary">{s.summary}</p>
+              <p className="hive__title">{s.label}</p>
             </div>
           </li>
         )
@@ -62,7 +62,7 @@ export function ServiceHive() {
       </li>
 
       <li className="hive__item hive__item--right" style={{ '--x': 3, '--y': 0.5, '--ring': 2, '--n': 6 } as React.CSSProperties}>
-        <a className="hex hex--call" href={telHref(primaryPhone)} aria-label={`Call us 24/7 on ${primaryPhone}`}>
+        <a className="hex hex--call" href={telHref(primaryPhone)} onClick={openCallPopup} aria-label={`Call us 24/7 on ${primaryPhone}`}>
           <span className="hex__inner">
             <PhoneIcon className="hex__icon" />
             <span className="hex__tag">24/7</span>
@@ -70,7 +70,6 @@ export function ServiceHive() {
         </a>
         <div className="hive__label">
           <p className="hive__title">One call, any hour</p>
-          <p className="hive__summary hive__phone">{primaryPhone}</p>
         </div>
       </li>
     </ul>

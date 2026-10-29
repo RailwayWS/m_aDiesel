@@ -2,7 +2,8 @@ import { Header } from './components/Header'
 import { Hero } from './components/Hero'
 import { Proof } from './components/Proof'
 import { Services } from './components/Services'
-import { Team } from './components/Team'
+// Team hidden until the client sends portraits — restore this import and <Team /> below.
+// import { Team } from './components/Team'
 import { About } from './components/About'
 import { Contact } from './components/Contact'
 import { Footer } from './components/Footer'
@@ -19,7 +20,7 @@ export default function App() {
         <Hero />
         <Proof />
         <Services />
-        <Team />
+        {/* <Team /> */}
         <About />
         <Contact />
       </main>

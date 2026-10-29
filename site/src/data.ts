@@ -101,7 +101,7 @@ export const team: TeamMember[] = [
 
 export const navLinks = [
   { id: 'services', label: 'Services' },
-  { id: 'team', label: 'Our Team' },
+  // { id: 'team', label: 'Our Team' }, // hidden until team portraits arrive
   { id: 'about', label: 'About' },
   { id: 'contact', label: 'Contact' },
 ]

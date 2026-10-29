@@ -28,7 +28,7 @@ export function Hero() {
         <div className="hero__ctas hero__stagger" style={{ '--i': 4 } as React.CSSProperties}>
           <a className="btn btn--emergency btn--lg" href={telHref(primaryPhone)} onClick={openCallPopup}>
             <PhoneIcon className="btn__icon" />
-            Call {primaryPhone}
+            Call now
           </a>
           <a className="btn btn--ghost btn--lg" href="#contact">
             Get a quote

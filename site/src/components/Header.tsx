@@ -91,10 +91,10 @@ export function Header({ page = 'home' }: { page?: Page }) {
 
         <a className="btn btn--emergency pill__call" href={telHref(primaryPhone)} onClick={openCallPopup}>
           <PhoneIcon className="btn__icon" />
-          <span className="pill__call-label">24/7</span> {primaryPhone}
+          <span className="pill__call-label">24/7</span> Call now
         </a>
 
-        <a className="pill__callicon" href={telHref(primaryPhone)} onClick={openCallPopup} aria-label={`Call ${primaryPhone}`}>
+        <a className="pill__callicon" href={telHref(primaryPhone)} onClick={openCallPopup} aria-label="Call now">
           <PhoneIcon />
         </a>
 

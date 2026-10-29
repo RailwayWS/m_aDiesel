@@ -117,7 +117,7 @@ export type NavLink = { id: string; label: string; /** Set for links to another 
 
 export const navLinks: NavLink[] = [
   { id: 'services', label: 'Services' },
-  // { id: 'team', label: 'Our Team' }, // hidden until team portraits arrive
+  { id: 'team', label: 'Our Team' },
   { id: 'about', label: 'About' },
   { id: 'gallery', label: 'Gallery', href: '/gallery/' },
   { id: 'contact', label: 'Contact' },

@@ -1103,7 +1103,7 @@ a.hex:active {
 }
 
 /* Team — cards with a square photo frame. Until a portrait exists the frame carries
-   the livery honeycomb, initials and a camera mark; a photo simply replaces all three. */
+   large navy initials on Swoosh Pale; a photo simply replaces them. */
 .team {
   display: grid;
   gap: 24px 16px;
@@ -1143,15 +1143,6 @@ a.hex:active {
   font: 700 clamp(40px, 5vw, 64px) / 1 var(--font-display);
   color: var(--primary);
   letter-spacing: 0.03em;
-}
-.member__pending {
-  position: relative;
-  color: var(--secondary);
-}
-.member__pending svg {
-  display: block;
-  width: 18px;
-  height: 18px;
 }
 .member__body {
   display: flex;
@@ -1768,10 +1759,6 @@ a.hex:active {
   }
   .member__initials {
     font-size: 28px;
-  }
-  .member__pending svg {
-    width: 14px;
-    height: 14px;
   }
   .member__body {
     justify-content: center;

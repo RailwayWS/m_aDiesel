@@ -1,6 +1,6 @@
 import { team, telHref, type TeamMember } from '../data'
 import { useReveal } from '../hooks'
-import { CameraIcon, PhoneIcon } from './Icons'
+import { PhoneIcon } from './Icons'
 
 const initials = (name: string) =>
   name
@@ -16,14 +16,9 @@ function Member({ m, i }: { m: TeamMember; i: number }) {
         {m.photo ? (
           <img src={m.photo} alt={`Portrait of ${m.name}`} loading="lazy" decoding="async" />
         ) : (
-          <>
-            <span className="member__initials" aria-hidden="true">
-              {initials(m.name)}
-            </span>
-            <span className="member__pending" aria-hidden="true">
-              <CameraIcon />
-            </span>
-          </>
+          <span className="member__initials" aria-hidden="true">
+            {initials(m.name)}
+          </span>
         )}
       </div>
       <div className="member__body">

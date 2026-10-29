@@ -32,7 +32,7 @@ function ServiceRow({ s, index }: { s: Service; index: number }) {
         {s.emergency && (
           <a className="btn btn--emergency reveal" style={{ '--i': 3 } as React.CSSProperties} href={telHref(primaryPhone)} onClick={openCallPopup}>
             <PhoneIcon className="btn__icon" />
-            Call now · {primaryPhone}
+            Call now
           </a>
         )}
       </div>

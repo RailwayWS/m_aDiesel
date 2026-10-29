@@ -62,7 +62,7 @@ export function ServiceHive() {
       </li>
 
       <li className="hive__item hive__item--right" style={{ '--x': 3, '--y': 0.5, '--ring': 2, '--n': 6 } as React.CSSProperties}>
-        <a className="hex hex--call" href={telHref(primaryPhone)} onClick={openCallPopup} aria-label={`Call us 24/7 on ${primaryPhone}`}>
+        <a className="hex hex--call" href={telHref(primaryPhone)} onClick={openCallPopup} aria-label="Call us 24/7">
           <span className="hex__inner">
             <PhoneIcon className="hex__icon" />
             <span className="hex__tag">24/7</span>

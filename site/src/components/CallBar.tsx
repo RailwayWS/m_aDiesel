@@ -12,7 +12,7 @@ export function CallBar() {
   return (
     <a className="callbar" href={telHref(primaryPhone)} onClick={openCallPopup} data-show={show} aria-hidden={!show} tabIndex={show ? 0 : -1}>
       <PhoneIcon className="btn__icon" />
-      Call 24/7 · {primaryPhone}
+      Call now
     </a>
   )
 }

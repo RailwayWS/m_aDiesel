@@ -47,7 +47,7 @@ export default function GalleryPage() {
           <div className="gcta__actions">
             <a className="btn btn--emergency btn--lg" href={telHref(primaryPhone)} onClick={openCallPopup}>
               <PhoneIcon className="btn__icon" />
-              Call {primaryPhone}
+              Call now
             </a>
             <a className="btn btn--ghost btn--lg" href="/#contact">
               Get a quote
